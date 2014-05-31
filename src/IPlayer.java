@@ -1,4 +1,3 @@
-package control;
 
 
 import model.Point;
