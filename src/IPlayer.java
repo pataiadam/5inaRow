@@ -1,7 +1,7 @@
 
 
 import model.Point;
-import control.rules.Table;
+import model.Table;
 
 public interface IPlayer {
 

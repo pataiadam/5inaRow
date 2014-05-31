@@ -3,8 +3,8 @@ package players;
 import java.util.Random;
 
 import model.Point;
+import model.Table;
 import control.IPlayer;
-import control.rules.Table;
 
 public class SecondPlayer implements IPlayer {
 

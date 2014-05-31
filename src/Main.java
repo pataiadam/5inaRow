@@ -1,8 +1,8 @@
+import model.Table;
 import players.FirstPlayer;
 import players.SecondPlayer;
 import control.IPlayer;
 import control.rules.Game;
-import control.rules.Table;
 
 
 public class Main {
