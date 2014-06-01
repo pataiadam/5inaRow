@@ -4,6 +4,7 @@ import model.Point;
 import model.Sign;
 import model.Table;
 import control.IPlayer;
+import control.Main;
 
 public class Game {
 
@@ -22,6 +23,28 @@ public class Game {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.table = table;
+		
+
+	}
+
+	public class FrameRefresher implements Runnable {
+		public void run() {
+			try {
+				while (true) {
+					Main.frame.redrawTable(table);
+					Thread.sleep(10);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public class Play implements Runnable {
+		public void run() {
+			start();
+			System.out.println(result());
+		}
 	}
 
 	public void start() {
@@ -32,6 +55,12 @@ public class Game {
 			if (!stepIsSuccess) {
 				result = "FAIL";
 				return;
+			}
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			System.out.println(next.getName() + " " + nextStep);
 		}
