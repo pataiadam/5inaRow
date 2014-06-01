@@ -4,7 +4,6 @@ import model.Point;
 import model.Sign;
 import model.Table;
 import control.IPlayer;
-import control.Main;
 
 public class Game {
 
@@ -17,58 +16,25 @@ public class Game {
 	private boolean isFirstNext = true;
 	private Sign nextSign;
 
-	private String winner;
+	private String winnerSign;
 
 	public Game(IPlayer p1, IPlayer p2, Table table) {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.table = table;
-		
-
 	}
 
-	public class FrameRefresher implements Runnable {
-		public void run() {
-			try {
-				while (true) {
-					Main.frame.redrawTable(table);
-					Thread.sleep(10);
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public class Play implements Runnable {
-		public void run() {
-			start();
-			System.out.println(result());
-		}
-	}
-
-	public void start() {
+	public void start(long time) throws InterruptedException {
 		while (!isFinished()) {
 			IPlayer next = nextPlayer();
 			Point nextStep = next.nextStep(table.getCopy());
+			System.out.println(next.getName() + " " + nextStep);
+
 			boolean stepIsSuccess = step(nextStep, nextSign);
 			if (!stepIsSuccess) {
-				result = "FAIL";
 				return;
 			}
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(next.getName() + " " + nextStep);
-		}
-
-		if (getWinner().equals(Sign.X)) {
-			result = p1.getName() + " is the winner!";
-		} else {
-			result = p2.getName() + " is the winner!";
+			Thread.sleep(time);
 		}
 	}
 
@@ -84,8 +50,8 @@ public class Game {
 	}
 
 	boolean isFinished() {
-		setWinner(findWinner());
-		return getWinner() != null ? true : false;
+		setWinnerSign(findWinner());
+		return getWinnerSign() != null ? true : false;
 	}
 
 	private String findWinner() {
@@ -139,16 +105,27 @@ public class Game {
 		return true;
 	}
 
-	String getWinner() {
-		return winner;
+	String getWinnerSign() {
+		return winnerSign;
 	}
 
-	private void setWinner(String winner) {
-		this.winner = winner;
+	private void setWinnerSign(String winnerSign) {
+		this.winnerSign = winnerSign;
 	}
 
 	public String result() {
+		if (getWinnerSign().equals(Sign.X)) {
+			result = p1.getName() + " is the winner!";
+		} else if (getWinnerSign().equals(Sign.O)) {
+			result = p2.getName() + " is the winner!";
+		} else {
+			result = "FAIL";
+		}
 		return result;
+	}
+
+	public Table getTable() {
+		return this.table;
 	}
 
 }

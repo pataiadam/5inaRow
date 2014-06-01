@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Font;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -7,18 +9,13 @@ import javax.swing.border.EmptyBorder;
 
 import model.Sign;
 import model.Table;
-import java.awt.Font;
 
 public class MainWindow extends JFrame {
 
+	private static final long serialVersionUID = -4507758962341993549L;
 	private JPanel contentPane;
 	private JTextArea textArea;
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @param t
-	 */
 	public MainWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 730, 450);
